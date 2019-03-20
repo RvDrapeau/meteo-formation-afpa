@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+	
+	
+	</head>
+	<body>
+
+
+
+		<table id="example" class="table table-striped table-bordered" style="width:100%">
+			<thead>
+				<tr>
+					<th>température en °C</th>
+					<th>taux d'humidité</th>
+					<th>vitesse du vent</th>
+                    <th>densité des nuages</th>
+					<th>type de temps</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+                    <th>température en °C</th>
+                    <th>taux d'humidité</th>
+                    <th>vitesse du vent en m/s</th>
+                    <th>densité des nuages</th>
+                    <th>type de temps</th>
+				</tr>
+			</tfoot>
+		</table>
+		
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+        
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+				<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+				<script>
+					$(document).ready(function() {
+						$('#example').DataTable({
+							"ajax": {
+								"url": 'http://api.openweathermap.org/data/2.5/weather?q=Angouleme&units=metric&mode=json&appid=4c751f95a60360ae52bee41672463b92&lang=fr',
+								"dataSrc": function ( json ) {
+								
+									var employes=new Array();
+										employes[0]=new Array();
+										employes[0][0] = json.main.temp;
+										employes[0][1] = json.main.humidity;
+										employes[0][2] = json.wind.speed;
+										employes[0][3] = json.clouds.all;
+										employes[0][4] = json.weather[0].description;
+										return employes;
+							
+									}
+				}
+			});
+			
+		} );
+							</script>
+	</body>
+</html>
